@@ -4,18 +4,18 @@ export default {
   input: "src/index.js",
   output: [
     {
-      name: "auto-upload-webpack-plugin",
+      name: "upload-server-webpack-plugin",
       file: "dist/index.cjs.js",
       exports: "default",
       format: "cjs",
     },
     {
-      name: "auto-upload-webpack-plugin",
+      name: "upload-server-webpack-plugin",
       file: "dist/index.umd.js",
       format: "umd",
     },
     {
-      name: "auto-upload-webpack-plugin",
+      name: "upload-server-webpack-plugin",
       file: "dist/index.esm.js",
       format: "esm",
     },

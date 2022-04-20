@@ -1,13 +1,13 @@
 {
-  "name": "auto-upload-webpack-plugin",
-  "version": "1.0.1",
-  "description": "Upload the packaged resources to the server based on node-ssh",
+  "name": "upload-server-webpack-plugin",
+  "version": "1.0.2",
+  "description": "Upload the packaged resources to the linux server based on node-ssh",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "index.umd.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/decSunshineHe/auto-upload-webpack-plugin.git"
+    "url": "https://github.com/decSunshineHe/upload-server-webpack-plugin.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -27,7 +27,6 @@
     "@babel/preset-env": "7.12.11",
     "rollup": "2.35.1",
     "rollup-plugin-babel": "4.4.0",
-    "rollup-plugin-terser": "7.0.2",
-    "xlsx": "0.16.9"
+    "rollup-plugin-terser": "7.0.2"
   }
 }

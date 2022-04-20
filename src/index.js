@@ -1,7 +1,6 @@
 const { NodeSSH } = require("node-ssh");
 const chalk = require("chalk");
-
-class AutoUploadPlugin {
+class UploadServerPlugin {
   constructor(options) {
     debugger;
     this.ssh = new NodeSSH();
@@ -10,7 +9,7 @@ class AutoUploadPlugin {
 
   apply(compiler) {
     compiler.hooks.afterEmit.tapAsync(
-      "AutoUploadPlugin",
+      "UploadServerPlugin",
       async (compilation, callback) => {
         console.log(chalk.green("auto-upload-plugin connet server..."));
         const outputPath = compilation.outputOptions.path;
@@ -52,4 +51,4 @@ class AutoUploadPlugin {
   }
 }
 
-export default AutoUploadPlugin;
+export default UploadServerPlugin;
