@@ -1,4 +1,4 @@
-import babel from "rollup-plugin-babel";
+import { getBabelOutputPlugin } from "@rollup/plugin-babel";
 import { terser } from "rollup-plugin-terser";
 export default {
   input: "src/index.js",
@@ -9,20 +9,19 @@ export default {
       exports: "default",
       format: "cjs",
     },
-    {
-      name: "upload-server-webpack-plugin",
-      file: "dist/index.umd.js",
-      format: "umd",
-    },
-    {
-      name: "upload-server-webpack-plugin",
-      file: "dist/index.esm.js",
-      format: "esm",
-    },
   ],
   plugins: [
-    babel({
+    getBabelOutputPlugin({
       exclude: "node_modules/**",
+      presets: ["@babel/preset-env"],
+      plugins: [
+        [
+          "@babel/plugin-transform-runtime",
+          {
+            regenerator: true,
+          },
+        ],
+      ],
     }),
     terser(),
   ],

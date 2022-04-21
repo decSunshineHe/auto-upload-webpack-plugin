@@ -8,34 +8,45 @@ class UploadServerPlugin {
   }
 
   apply(compiler) {
-    compiler.hooks.afterEmit.tapAsync(
-      "UploadServerPlugin",
-      async (compilation, callback) => {
-        console.log(chalk.green("auto-upload-plugin connet server..."));
+    if (compiler.hooks) {
+      compiler.hooks.afterEmit.tapAsync(
+        "UploadServerPlugin",
+        (compilation, callback) => {
+          const outputPath = compilation.outputOptions.path;
+          this.handleConnect(outputPath, callback);
+        }
+      );
+    } else {
+      compiler.plugin("after-emit", (compilation, callback) => {
         const outputPath = compilation.outputOptions.path;
-        this.ssh
-          .connect({
-            host: this.options.host,
-            username: this.options.username,
-            password: this.options.password,
-          })
-          .then(async (res) => {
-            const serverDir = this.options.remotePath;
-            await this.ssh.execCommand(`rm -rf ${serverDir}/*`);
-            await this.uploadFiles(outputPath, serverDir);
-            this.ssh.dispose();
-            callback();
-          })
-          .catch((err) => {
-            console.log(
-              chalk.red(
-                `Error: auto-upload-plugin connect sever ${this.options.host} failed. \n`
-              )
-            );
-            callback();
-          });
-      }
-    );
+        this.handleConnect(outputPath, callback);
+      });
+    }
+  }
+
+  handleConnect(outputPath, callback) {
+    console.log(chalk.green("upload-server-plugin connet server..."));
+    this.ssh
+      .connect({
+        host: this.options.host,
+        username: this.options.username,
+        password: this.options.password,
+      })
+      .then(async (res) => {
+        const serverDir = this.options.remotePath;
+        await this.ssh.execCommand(`rm -rf ${serverDir}/*`);
+        await this.uploadFiles(outputPath, serverDir);
+        this.ssh.dispose();
+        callback();
+      })
+      .catch((err) => {
+        console.log(
+          chalk.red(
+            `Error: upload-server-plugin connect sever ${this.options.host} failed. \n`
+          )
+        );
+        callback();
+      });
   }
 
   async uploadFiles(localPath, remotePath) {
