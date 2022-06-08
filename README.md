@@ -22,6 +22,7 @@ export default {
     ...
     new UploadServerPlugin({
       host: "xxx.xxx.x.xx", // server host ip
+      port: '22', // server host port
       username: "root",
       password: "123456",
       remotePath: "/home/",

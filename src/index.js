@@ -29,6 +29,7 @@ class UploadServerPlugin {
     this.ssh
       .connect({
         host: this.options.host,
+        port: this.options.port,
         username: this.options.username,
         password: this.options.password,
       })
